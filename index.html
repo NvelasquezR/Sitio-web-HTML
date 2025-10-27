@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portafolio profesional con proyectos, artículos y información de contacto">
+    <meta name="keywords" content="portafolio, proyectos, desarrollo web, artículos, tecnología">
+    <meta name="author" content="Tu Nombre">
+    <meta name="robots" content="index, follow">
+    <title>Inicio - Mi portafolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        nav {
+            background-color: #2c3e50;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            transition: background-color 0.3s;
+            border-radius: 5px;
+        }
+
+        nav a:hover,
+        nav a:active {
+            background-color: #34495e;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 3rem 0;
+            background: linear-gradient(135deg, #667eea, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.9;
+        }
+
+        header p {
+            font-size: 1.9rem;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 2rem 0;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .card h2 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            color: #555;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem o;
+            margin-top: 3rem;
+        }
+
+        .project-grid,
+        .article-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .project-card,
+        .article-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3;
+        }
+
+        .project-card:hover,
+        .article-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-card h3,
+        .article-card h3 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .page-selector {
+            background: #f8f9fa;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .page-selector button {
+            margin: 0.5rem;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .current-page {
+            background: #34495e;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#" class="nav-link active" data-page="inicio">Inicio</a></li>
+            <li><a href="#" class="nav-link" data-page="proyectos">Proyectos</a></li>
+            <li><a href="#" class="nav-link" data-page="articulos">Artículos</a></li>
+            <li><a href="#" class="nav-link" data-page="contacto">Contacto</a></li>
+        </ul>
+    </nav>
+    <div id="page-content"></div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Mi Portafolio. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        const pages = {
+            inicio: `
+                <header>
+                    <div class="container">
+                        <h1>Bienvenido a Mi Portafolio</h1>
+                        <p>Desarrollador Web | Creador de Contenido | Innovador</p>
+                    </div>
+                </header>
+                <main class="container content">
+                    <div class="card">
+                        <h2>Sobre Mí</h2>
+                        <p>Hola mi nombre es Nikholas, soy un joven aprendiz en programación, llevo dos años en aprendizaje  en lenguajes de programación como JavaScript entre otros, tambien cuento con un año de experiencia en trabajos de asistencia virtual.</p>
+                        <p>Tengo hablidades como asistente que el orden sera una de las prioridades si quieres que haga partde de tu equipo. Estoy abierto a cualquier posibilidad de trabajo para que seamos un gran equipo :)</p>
+                    </div>
+                    <div class="card">
+                        <h2>¿Qué Hago?</h2>
+                        <p>💻 Desarrollo aplicaciones web modernas y responsivas</p>
+                        <p>✍️ Escribo artículos sobre tecnología y mejores prácticas</p>
+                        <p>🚀 Trabajo en proyectos innovadores que resuelven problemas reales</p>
+                    </div>
+                </main>   
+            `,
+            proyectos: `
+                <header>
+                    <div class="container">
+                        <h1>Mis Proyectos</h1>
+                        <p>Explora mi trabajo y las soluciones que he desarrollado</p>
+                    </div>
+                </header>
+                <main class="container content">
+                    <div class="project-grid">
+                        <article class="project-card">
+                            <h3>E-commerce Platform</h3>
+                            <p>Plataforma completa de comercio electrónico con carrito de compras, sistema de pagos y gestión de inventario.</p>
+                            <p><strong>Tecnologías:</strong> HTML, CSS, JavaScript</p>
+                        </article>
+                        <article class="project-card">
+                            <h3>Sistema de Gestión</h3>
+                            <p>Aplicación web para la gestión de recursos empresariales con dashboard interactivo y reportes en tiempo real.</p>
+                            <p><strong>Tecnologías:</strong> HTML5, CSS3, JavaScript</p>
+                        </article>
+                        <article class="project-card">
+                            <h3>Portfolio Interactivo</h3>
+                            <p>Sitio web moderno y responsivo para mostrar trabajos creativos con animaciones y efectos visuales.</p>
+                            <p><strong>Tecnologías:</strong> HTML, CSS, JavaScript</p>
+                        </article>
+                        <article class="project-card">
+                            <h3>Blog Técnico</h3>
+                            <p>Plataforma de blogging optimizada para SEO con sistema de comentarios y categorización de contenido.</p>
+                            <p><strong>Tecnologías:</strong> HTML, CSS, JavaScript</p>
+                        </article>
+                        <article class="project-card">
+                            <h3>App de Productividad</h3>
+                            <p>Aplicación para gestión de tareas con recordatorios, categorías y sincronización en la nube.</p>
+                            <p><strong>Tecnologías:</strong> HTML5, CSS3, JavaScript</p>
+                        </article>
+                        <article class="project-card">
+                            <h3>Landing Page Corporativa</h3>
+                            <p>Página de aterrizaje optimizada para conversión con formularios de contacto y análisis de métricas.</p>
+                            <p><strong>Tecnologías:</strong> HTML, CSS, JavaScript</p>
+                        </article>
+                    </div>
+                </main>
+            `,
+            articulos: `
+                <header>
+                    <div class="container">
+                        <h1>Artículos</h1>
+                        <p>Comparto conocimiento y experiencias sobre desarrollo web</p>
+                    </div>
+                </header>
+                <main class="container content">
+                    <div class="article-grid">
+                        <article class="article-card">
+                            <h3>HTML Semántico: Mejores Prácticas</h3>
+                            <p><small>Publicado: 15 de Octubre, 2025</small></p>
+                            <p>Aprende cómo utilizar etiquetas HTML semánticas para mejorar la accesibilidad y el SEO de tus sitios web.</p>
+                        </article>
+                        <article class="article-card">
+                            <h3>Optimización de Rendimiento Web</h3>
+                            <p><small>Publicado: 8 de Octubre, 2025</small></p>
+                            <p>Técnicas y estrategias para mejorar la velocidad de carga y el rendimiento de tus aplicaciones web.</p>
+                        </article>
+                        <article class="article-card">
+                            <h3>Diseño Responsivo en 2025</h3>
+                            <p><small>Publicado: 1 de Octubre, 2025</small></p>
+                            <p>Guía completa sobre cómo crear sitios web que se adapten perfectamente a cualquier dispositivo.</p>
+                        </article>
+                        <article class="article-card">
+                            <h3>SEO para Desarrolladores</h3>
+                            <p><small>Publicado: 22 de Septiembre, 2025</small></p>
+                            <p>Todo lo que necesitas saber sobre optimización para motores de búsqueda desde la perspectiva técnica.</p>
+                        </article>
+                        <article class="article-card">
+                            <h3>Formularios Accesibles</h3>
+                            <p><small>Publicado: 15 de Septiembre, 2025</small></p>
+                            <p>Cómo crear formularios web que sean utilizables por todas las personas, incluyendo usuarios con discapacidades.</p>
+                        </article>
+                        <article class="article-card">
+                            <h3>Estructura de Proyectos Web</h3>
+                            <p><small>Publicado: 5 de Septiembre, 2025</small></p>
+                            <p>Mejores prácticas para organizar archivos y carpetas en proyectos de desarrollo web.</p>
+                        </article>
+                    </div>
+                </main>
+            `,
+            contacto: `
+                <header>
+                    <div class="container">
+                        <h1>Contacto</h1>
+                        <p>¿Tienes un proyecto en mente? ¡Hablemos!</p>
+                    </div>
+                </header>
+                <main class="container content">
+                    <div class="card">
+                        <h2>Envíame un mensaje</h2>
+                        <p>Completa el formulario y me pondré en contacto contigo lo antes posible.</p>
+                        <form id="contact-form">
+                            <div class="form-group">
+                                <label for="nombre">Nombre completo *</label>
+                                <input type="text" id="nombre" name="nombre" required placeholder="Juan Pérez">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Correo electrónico *</label>
+                                <input type="email" id="email" name="email" required placeholder="tu@email.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="telefono">Teléfono</label>
+                                <input type="tel" id="telefono" name="telefono" placeholder="+57 300 123 4567">
+                            </div>
+                            <div class="form-group">
+                                <label for="asunto">Asunto *</label>
+                                <input type="text" id="asunto" name="asunto" required placeholder="Motivo de contacto">
+                            </div>
+                            <div class="form-group">
+                                <label for="mensaje">Mensaje *</label>
+                                <textarea id="mensaje" name="mensaje" required placeholder="Escribe tu mensaje aquí..."></textarea>
+                            </div>
+                            <button type="submit">Enviar Mensaje</button>
+                        </form>
+                    </div>
+                    <div class="card">
+                        <h2>Otras formas de contacto</h2>
+                        <p>📧 Email: velasqueznikholas@gmail.com</p>
+                        <p>📱 Teléfono: +57 315 3606506 (Solo mensajes:)</p>
+                        <p>📍 Ubicación: Colombia</p>
+                    </div>
+                </main>
+            `
+        };
+
+        function updateMetaTags(page) {
+            const metaTags = {
+                inicio: {
+                    title: 'Inicio - Mi Portafolio',
+                    description: 'Portafolio profesional con proyectos, artículos y información de contacto',
+                    keywords: 'portafolio, proyectos, desarrollo web, artículos, tecnología'
+                },
+                proyectos: {
+                    title: 'Proyectos - Mi Portafolio',
+                    description: 'Explora mis proyectos de desarrollo web y las soluciones innovadoras que he creado',
+                    keywords: 'proyectos web, desarrollo, aplicaciones, e-commerce, sistemas'
+                },
+                articulos: {
+                    title: 'Artículos - Mi Portafolio',
+                    description: 'Lee mis artículos sobre desarrollo web, mejores prácticas y tecnología',
+                    keywords: 'artículos técnicos, blog, desarrollo web, tutoriales, programación'
+                },
+                contacto: {
+                    title: 'Contacto - Mi Portafolio',
+                    description: 'Contáctame para proyectos, colaboraciones o consultas sobre desarrollo web',
+                    keywords: 'contacto, formulario, email, mensaje, colaboración'
+                }
+            };
+
+            document.title = metaTags[page].title;
+            document.querySelector('meta[meta="description"]').content = metaTags[page].description;
+            document.querySelector('meta[name="keywords"]').content = metaTags[page].keywords;
+        }
+
+        function loadPage(pageName) {
+            document.getElementById('page-content').innerHTML = pages[pageName];
+            updateMetaTags(pageName);
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.dataset.page === pageName) {
+                    link.classList.add('active');
+                }
+            });
+
+            if (pageName === 'contacto') {
+                document.getElementById('contact-form').addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('¡Gracias por tu mensaje! Me pondré en contacto contigo pronto.');
+                    this.reset();
+                });
+            }
+
+            window.scrollTo(0, 0);
+        }
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                loadPage(this.dataset.page);
+            });
+        });
+
+        loadPage('inicio');
+    </script>
+</body>
+</html>
