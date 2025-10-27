@@ -1,1 +1,1 @@
-https://github.com/NvelasquezR/Sitio-web-HTML.git
+https://github.com/NvelasquezR/Sitio-web-HTML/tree/main
